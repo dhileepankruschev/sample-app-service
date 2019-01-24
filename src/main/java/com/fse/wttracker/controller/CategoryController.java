@@ -30,6 +30,8 @@ public class CategoryController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public void saveCategory(@RequestBody Category category) {
 
+		category.getWorkouts().forEach(workout -> workout.setCategoryParent(category));
+
 		categoryRepository.save(category);
 	}
 

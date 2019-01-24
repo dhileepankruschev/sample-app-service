@@ -2,9 +2,14 @@ package com.fse.wttracker.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Workout {
@@ -19,10 +24,30 @@ public class Workout {
 	private String note;
 	@Column(name = "calories_burn_per_min")
 	private Float calories;
-	@Column(name = "category_id")
-	private Integer categoryId;
+	/*
+	 * @Column(name = "category_id") private Integer categoryId;
+	 */
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "category_id", nullable = false)
+	private Category categoryParent;
 
 	public Workout() {
+	}
+
+	/**
+	 * @return the categoryParent
+	 */
+	public Category getCategoryParent() {
+		return categoryParent;
+	}
+
+	/**
+	 * @param categoryParent
+	 *            the categoryParent to set
+	 */
+	public void setCategoryParent(Category categoryParent) {
+		this.categoryParent = categoryParent;
 	}
 
 	/**
@@ -83,21 +108,6 @@ public class Workout {
 	 */
 	public void setCalories(Float calories) {
 		this.calories = calories;
-	}
-
-	/**
-	 * @return the categoryId
-	 */
-	public Integer getCategoryId() {
-		return categoryId;
-	}
-
-	/**
-	 * @param categoryId
-	 *            the categoryId to set
-	 */
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
 	}
 
 }
