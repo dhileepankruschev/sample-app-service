@@ -19,7 +19,7 @@ public class Category {
 	private Integer id;
 	@Column(name = "category_name")
 	private String category;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryParent")
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "categoryParent")
 	private List<Workout> workouts;
 
 	/**

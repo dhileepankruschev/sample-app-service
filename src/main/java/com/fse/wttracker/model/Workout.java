@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,11 +29,29 @@ public class Workout {
 	 * @Column(name = "category_id") private Integer categoryId;
 	 */
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category categoryParent;
 
+	@Transient
+	private Category category;
+
 	public Workout() {
+	}
+
+	/**
+	 * @return the category
+	 */
+	public Category getCategory() {
+		return category;
+	}
+
+	/**
+	 * @param category
+	 *            the category to set
+	 */
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	/**

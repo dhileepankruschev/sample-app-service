@@ -41,6 +41,7 @@ public class WorkoutTrackerController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public void saveWorkout(@RequestBody Workout workout) {
 
+		workout.setCategoryParent(workout.getCategory());
 		workoutRepository.save(workout);
 	}
 
